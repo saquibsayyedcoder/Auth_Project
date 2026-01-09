@@ -4,35 +4,44 @@ import jwt from "jsonwebtoken";
 
 //Resgister 
 export const register = async (req, res) => {
-    try {
-        const {name, email, password} = req.body;
+  try {
+    const { name, email, password } = req.body;
 
-        const userExists = await User.findOne({email});
-        if(userExists) {
-            return res.status(400).json({message:"User already exist"});
-        }
-       const hashedPassword = await bcrypt.hash(password, 10);
-
-await User.create({
-  name,
-  email,
-  password: hashedPassword,
-});
-
-
-        const user = await User.create({
-            name, 
-            email,
-            password: hashedPassword,
-
-        });
-
-        res.status(201).json({message:"User registration successfully"});
-    } catch (error) {
-        res.status(500).json({message:error.message});
-        
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
     }
-}
+
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await User.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    return res.status(201).json({
+      message: "User registered successfully",
+    });
+
+  } catch (error) {
+    // 🔴 HANDLE DUPLICATE KEY ERROR
+    if (error.code === 11000) {
+      return res.status(400).json({
+        message: "Email already registered",
+      });
+    }
+
+    return res.status(500).json({
+      message: "Server error",
+    });
+  }
+};
+
 
 //LOgin
 

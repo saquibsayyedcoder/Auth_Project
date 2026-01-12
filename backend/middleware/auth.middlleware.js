@@ -1,23 +1,30 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
+import User from "../model/user.model.js";
 
-const protect = (req, res, next) => {
-    const token = req.headers.authorization?.split(" ")[1];
+const protect = async (req, res, next) => {
+  const authHeader = req.headers.authorization;
 
-    if(!token){
-        return res.status(401).json({
-            message:"Not authorized, no token"
-        });
+  if (!authHeader || !authHeader.startsWith("Bearer")) {
+    return res.status(401).json({ message: "Not authorized, no token" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // 🔥 DB se user lao (password included)
+    const user = await User.findById(decoded.id).select("+password");
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
     }
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
-        next();
-        
-    } catch (error) {
-        res.status(401).json({
-            message:"Invalid Token"
-        });
-    }
 
+    req.user = user;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid Token" });
+  }
 };
+
 export default protect;

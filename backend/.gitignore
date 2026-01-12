@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 .env
+
+#i am recently hide all the important part of this project this is for testing purpose

@@ -1,46 +1,53 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import BookModal from "./BookModal";
 
 const BookCards = ({ book }) => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300">
-      <img
-        src={`http://localhost:5000${book.image}`}
-        alt={book.title}
-        className="w-full h-48 object-cover rounded-t-xl"
-      />
+    <>
+      {/* CARD */}
+      <div
+        onClick={() => setOpen(true)}
+        className="cursor-pointer group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+      >
+        {/* IMAGE */}
+        <img
+          src={`http://localhost:5000${book.image}`}
+          alt={book.title}
+          className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-300"
+        />
 
-      <div className="p-4">
-        <h2 className="text-lg font-semibold text-gray-800">
-          {book.title}
-        </h2>
+        {/* CONTENT */}
+        <div className="p-4 space-y-2">
+          <h2 className="text-lg font-semibold text-gray-800 line-clamp-1">
+            {book.title}
+          </h2>
 
-        <p className="text-sm text-gray-500 mb-2">
-          by {book.author}
-        </p>
+          <p className="text-sm text-gray-500">
+            by <span className="font-medium">{book.author}</span>
+          </p>
 
-        <p className="text-gray-700 text-sm line-clamp-2">
-          {book.description}
-        </p>
+          <p className="text-sm text-gray-600 line-clamp-2">
+            {book.description}
+          </p>
+        </div>
 
-        <div className="flex justify-between items-center mt-4">
-          <span className="font-bold text-green-600">
+        {/* FOOTER */}
+        <div className="flex items-center justify-between px-4 py-3 border-t">
+          <span className="text-lg font-bold text-indigo-600">
             ₹{book.price}
           </span>
 
-          <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
+          <span className="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full">
             Stock: {book.stock}
           </span>
         </div>
       </div>
 
-      <Link
-  to={`/edit-book/${book._id}`}
-  className="px-3 py-1 bg-yellow-500 text-white rounded"
->
-  Edit
-</Link>
-
-    </div>
+      {/* MODAL */}
+      {open && <BookModal book={book} close={() => setOpen(false)} />}
+    </>
   );
 };
 

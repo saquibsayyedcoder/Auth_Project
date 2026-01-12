@@ -41,6 +41,12 @@ const Navbar = () => {
           {/* Not Logged In */}
           {!isLoggedIn && (
             <>
+             <Link
+          to="/"
+          className="text-gray-700 hover:text-blue-600 font-medium"
+        >
+         Home
+        </Link>
             
               <Link
                 to="/login"

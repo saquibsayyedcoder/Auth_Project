@@ -8,8 +8,14 @@ router.post("/register", register);
 router.post("/login", login);
 
 router.get("/profile", protect, (req, res) => {
-    res.json({
-        message:"Protected routes", user:req.user
-    });
-})
+  res.json({
+    message: "Protected routes",
+    user: {
+      id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
+      password: req.user.password, // 🔐 hashed
+    },
+  });
+});
 export default router;

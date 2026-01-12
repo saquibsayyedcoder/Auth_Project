@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./css/Profile.css";
+
 
 const Profile = () => {
   const BackendUrl = import.meta.env.VITE_BACKEND_URL;

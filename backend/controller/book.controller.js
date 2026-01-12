@@ -67,71 +67,85 @@ export const getSingleBook = async (req, res) => {
 //Update Book 
 
 export const updateBook = async (req, res) => {
-    try {
-        const bookId = req.params.id;
+  try {
+    const bookId = req.params.id;
 
-        //1. pehel book niaklo
-        const book =  await Book.findById(bookId);
-        if(!book){
-            return res.status(404).json({
-                message:"Book not Found"
-            });
-        }
-        //2. Aagar new img sayi hai
-        if(req.file){
-            //purani image delte karo
-            if(book.image){
-                const odlImagePath = path.join(process.cwd(), book.image);
-                if(fs.existsSysc(odlImagePath)){
-                    fs.unlinkSync(odlImagePath);
-                }
-            }
-              //new image path set karo
-        req.body.image = `/uploads/$(req.file.filename)`;
-        }
-
-        //3. Book updated
-        const updateBook = await Book.findByIdAndUpdate(
-            bookId,
-            req.body,
-            {new: true}
-        );
-        res.json({
-            message: "Book Updated Successfully",
-            book: updatedBook,
-        });
-    } catch (error) {
-        res.status(500).json({message:error.message});
-        
+    // 1️⃣ Find book
+    const book = await Book.findById(bookId);
+    if (!book) {
+      return res.status(404).json({
+        message: "Book not Found",
+      });
     }
-}
+
+    // 2️⃣ If new image uploaded
+    if (req.file) {
+      // delete old image
+      if (book.image) {
+        const oldImagePath = path.join(
+          process.cwd(),
+          book.image.replace("/", "")
+        );
+
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath);
+        }
+      }
+
+      // set new image path
+      req.body.image = `/uploads/${req.file.filename}`;
+    }
+
+    // 3️⃣ Update book
+    const updatedBook = await Book.findByIdAndUpdate(
+      bookId,
+      req.body,
+      { new: true }
+    );
+
+    res.json({
+      message: "Book Updated Successfully",
+      book: updatedBook,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 
 //Delete Book
 
 export const deleteBook = async (req, res) => {
-    try {
-        const book = await Book.findById(req.params.id);
-        if(!book){
-            return res.status(404).json({
-                message:"Book Not Found"
-            });
-        }
-        //Image delete karo
-        if(book.image){
-            const imagePath = path.join(process.cwd(), book.image);
-            if(fs.existsSync(imagePath)){
-                fs.unlinkSync(imagePath);
-            }
-        }
+  try {
+    const book = await Book.findById(req.params.id);
+    if (!book) {
+      return res.status(404).json({
+        message: "Book Not Found",
+      });
+    }
 
-        //book delete
-        await Book.findByIdAndDelete(req.params.id);
+    // delete image
+    if (book.image) {
+      const imagePath = path.join(
+        process.cwd(),
+        book.image.replace("/", "")
+      );
 
-        res.json({
-            message:"Book Deleted Successfully",
-        });
-    } catch (error) {
-        res.status(500).json({message:error.message});
-        
-    };
-}
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+    }
+
+    await Book.findByIdAndDelete(req.params.id);
+
+    res.json({
+      message: "Book Deleted Successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};

@@ -5,6 +5,9 @@ import Home from './Pages/Home';
 import Register from './components/Register'
 import Profile from './Pages/Profile';
 import Navbar from './components/Navbar';
+import AddBook from './Pages/AddBook';
+import ProtectedRoute from './components/ProtectedRoute';
+import EditBook from './Pages/EditBook';
 
 
 const App = () => {
@@ -18,6 +21,15 @@ const App = () => {
  <Route path='/login' element={<Login/>} />
   <Route path='/signup' element={<Register/>} />
   <Route path='/profile' element={<Profile/>} />
+  <Route path="/edit-book/:id" element={<EditBook />} />
+
+  <Route
+  path="/add-book"
+  element={
+    <ProtectedRoute>
+      <AddBook />
+    </ProtectedRoute>
+  }/>
  </Routes>
 </Router>
   </>

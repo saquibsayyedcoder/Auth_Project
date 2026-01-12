@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./css/Login.css";
+
 
 const Login = () => {
   const BackendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -18,14 +18,14 @@ const Login = () => {
     setError(null);
 
     try {
-      const res = await axios.post(`${BackendUrl}/api/auth/login`, {
+      const res = await axios.post(`${BackendUrl}/auth/login`, {
         email,
         password,
       });
 
       localStorage.setItem("token", res.data.token);
       alert("Login successful");
-      navigate("/profile");
+      navigate("/add-book");
 
       setEmail("");
       setPassword("");

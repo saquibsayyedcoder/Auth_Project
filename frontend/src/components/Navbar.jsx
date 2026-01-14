@@ -32,7 +32,7 @@ const Navbar = () => {
           to="/"
           className="text-2xl font-bold text-blue-600 hover:text-blue-700"
         >
-          📚 BookStore
+        BookStore
         </Link>
 
         {/* Right Menu */}
@@ -72,6 +72,12 @@ const Navbar = () => {
                 className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
               >
                 Add Book
+              </Link>
+              <Link
+                to='/single-book/:id'
+                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+              >
+                Single Books
               </Link>
 
               <button

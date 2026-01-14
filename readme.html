@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TypeScript + Next.js Interview Roadmap</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            margin: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 5px;
+        }
+        
+        .phase {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 15px;
+            background: #f8f9ff;
+            border-left: 5px solid #667eea;
+        }
+        
+        .phase-title {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .phase-title::before {
+            content: "📚";
+            font-size: 24px;
+        }
+        
+        .phase:nth-child(2) .phase-title::before { content: "⚡"; }
+        .phase:nth-child(3) .phase-title::before { content: "🚀"; }
+        .phase:nth-child(4) .phase-title::before { content: "💻"; }
+        .phase:nth-child(5) .phase-title::before { content: "🎯"; }
+        
+        .week-plan {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #e0e7ff;
+        }
+        
+        .week-plan h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background: #1a1a1a;
+            color: #00d9ff;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .resource-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #e0e7ff;
+            transition: transform 0.3s;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .button {
+            display: inline-block;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+        }
+        
+        @media print {
+            body {
+                background: white !important;
+            }
+            .container {
+                box-shadow: none;
+                margin: 0;
+                padding: 20px;
+            }
+            .button {
+                display: none !important;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container" id="content">
+        <div class="header">
+            <h1>TypeScript + Next.js Interview Roadmap</h1>
+            <p>Complete 7-Week Preparation Guide • Last Updated: December 2024</p>
+            <div style="margin-top: 15px;">
+                <span class="badge">TypeScript</span>
+                <span class="badge">Next.js 14+</span>
+                <span class="badge">React 18</span>
+                <span class="badge">App Router</span>
+            </div>
+        </div>
+        
+        <div class="phase">
+            <h2 class="phase-title">Phase 1: TypeScript Fundamentals (Week 1-2)</h2>
+            <div class="week-plan">
+                <h4>📌 Core Concepts:</h4>
+                <ul>
+                    <li>Basic Types & Type Annotations</li>
+                    <li>Interfaces vs Types</li>
+                    <li>Union & Intersection Types</li>
+                    <li>Generics (T, K, V)</li>
+                    <li>Type Guards & Narrowing</li>
+                    <li>Utility Types (Partial, Pick, Omit)</li>
+                    <li>Decorators & Metadata</li>
+                </ul>
+                <h4>🎯 Interview Focus:</h4>
+                <ul>
+                    <li>Difference between interface and type</li>
+                    <li>Generic constraints with extends</li>
+                    <li>Mapped and Conditional types</li>
+                    <li>Type vs Interface practical use cases</li>
+                </ul>
+            </div>
+            <div class="code-block">
+// TypeScript Interview Question Example<br>
+type User = { id: string; name: string; };<br>
+type Admin = User & { role: 'admin'; permissions: string[] };<br>
+<br>
+function getUser<T extends User>(id: string): T {<br>
+&nbsp;&nbsp;// Implementation<br>
+}
+            </div>
+        </div>
+        
+        <div class="phase">
+            <h2 class="phase-title">Phase 2: Next.js Core (Week 3-4)</h2>
+            <div class="week-plan">
+                <h4>📌 Essential Topics:</h4>
+                <ul>
+                    <li>App Router vs Pages Router (Focus on App Router)</li>
+                    <li>Routing (Dynamic, Nested, Parallel)</li>
+                    <li>Data Fetching in Server Components</li>
+                    <li>Caching Strategies (NEXT.js 14+)</li>
+                    <li>Server Actions and Forms</li>
+                    <li>Middleware & Authentication Patterns</li>
+                    <li>API Routes in App Router</li>
+                </ul>
+                <h4>🎯 Interview Focus:</h4>
+                <ul>
+                    <li>React Server Components vs Client Components</li>
+                    <li>When to use use client / use server</li>
+                    <li>Static vs Dynamic vs Streaming rendering</li>
+                    <li>Caching: force-cache, no-store, revalidate</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="phase">
+            <h2 class="phase-title">Phase 3: Advanced Patterns (Week 5)</h2>
+            <div class="week-plan">
+                <h4>📌 Key Patterns:</h4>
+                <ul>
+                    <li>Component Composition with TypeScript</li>
+                    <li>State Management (Context, Zustand, Jotai)</li>
+                    <li>Error Boundaries & Error Handling</li>
+                    <li>Loading States & Skeletons</li>
+                    <li>Performance Optimization</li>
+                </ul>
+                <div class="code-block">
+// Performance Optimization Pattern<br>
+import { Suspense } from 'react';<br>
+import Loading from './loading';<br>
+<br>
+export default function Page() {<br>
+&nbsp;&nbsp;return (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;Suspense fallback={&lt;Loading />}><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;UserProfile /><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Suspense><br>
+&nbsp;&nbsp;);<br>
+}
+                </div>
+            </div>
+        </div>
+        
+        <div class="phase">
+            <h2 class="phase-title">Phase 4: Real Projects (Week 6)</h2>
+            <div class="week-plan">
+                <h4>Build These Projects:</h4>
+                <ol>
+                    <li><strong>E-commerce Dashboard</strong> - Full CRUD, Zustand, Admin Panel</li>
+                    <li><strong>Blog Platform</strong> - MDX, SEO, Comments, CMS</li>
+                    <li><strong>Real-time Analytics</strong> - WebSockets, Charts, Filters</li>
+                </ol>
+                <h4>Project Requirements:</h4>
+                <ul>
+                    <li>100% TypeScript with strict mode</li>
+                    <li>Use Next.js App Router</li>
+                    <li>Implement proper error handling</li>
+                    <li>Add loading states</li>
+                    <li>Deploy on Vercel</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="phase">
+            <h2 class="phase-title">Phase 5: Interview Prep (Week 7)</h2>
+            <div class="week-plan">
+                <h4>Common Questions:</h4>
+                <ul>
+                    <li>How does TypeScript ensure type safety at runtime?</li>
+                    <li>Difference between any, unknown, never</li>
+                    <li>Explain Next.js caching mechanism</li>
+                    <li>When to use static vs dynamic rendering?</li>
+                </ul>
+                <h4>Coding Challenges:</h4>
+                <ul>
+                    <li>Create a type-safe form component</li>
+                    <li>Implement infinite scroll with TypeScript</li>
+                    <li>Build a custom useFetch hook with generics</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="phase">
+            <h2 class="phase-title">📊 7-Week Study Schedule</h2>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <tr style="background: #667eea; color: white;">
+                        <th style="padding: 12px; text-align: left;">Week</th>
+                        <th style="padding: 12px; text-align: left;">Focus</th>
+                        <th style="padding: 12px; text-align: left;">Daily (2-3 hours)</th>
+                        <th style="padding: 12px; text-align: left;">Weekend Project</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">1</td>
+                        <td style="padding: 10px;">TypeScript Basics</td>
+                        <td style="padding: 10px;">Types, Interfaces, Functions</td>
+                        <td style="padding: 10px;">Todo App with TS</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">2</td>
+                        <td style="padding: 10px;">Advanced TS</td>
+                        <td style="padding: 10px;">Generics, Utils, Decorators</td>
+                        <td style="padding: 10px;">Custom Hooks Library</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">3</td>
+                        <td style="padding: 10px;">Next.js Basics</td>
+                        <td style="padding: 10px;">Routing, RSCs, Data Fetching</td>
+                        <td style="padding: 10px;">Blog with App Router</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">4</td>
+                        <td style="padding: 10px;">Next.js Advanced</td>
+                        <td style="padding: 10px;">Caching, Auth, Optimization</td>
+                        <td style="padding: 10px;">Auth Dashboard</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">5</td>
+                        <td style="padding: 10px;">Performance</td>
+                        <td style="padding: 10px;">Bundle Analysis, Lazy Loading</td>
+                        <td style="padding: 10px;">Optimized E-commerce</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">6</td>
+                        <td style="padding: 10px;">Full Project</td>
+                        <td style="padding: 10px;">Complete Application</td>
+                        <td style="padding: 10px;">Portfolio Project</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">7</td>
+                        <td style="padding: 10px;">Interview Prep</td>
+                        <td style="padding: 10px;">Mock Interviews, Revisions</td>
+                        <td style="padding: 10px;">Interview Ready!</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="phase">
+            <h2 class="phase-title">🔗 Essential Resources</h2>
+            <div class="resources">
+                <div class="resource-card">
+                    <h4>Official Docs</h4>
+                    <p>• TypeScript Handbook</p>
+                    <p>• Next.js Documentation</p>
+                    <p>• React Beta Docs</p>
+                </div>
+                <div class="resource-card">
+                    <h4>Practice Platforms</h4>
+                    <p>• Type Challenges GitHub</p>
+                    <p>• Next.js Examples</p>
+                    <p>• LeetCode TypeScript</p>
+                </div>
+                <div class="resource-card">
+                    <h4>Tools</h4>
+                    <p>• Vercel for Deployment</p>
+                    <p>• TypeScript Playground</p>
+                    <p>• Next.js Play</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="phase">
+            <h2 class="phase-title">🎯 Interview Day Checklist</h2>
+            <div style="background: #fff9e6; padding: 20px; border-radius: 10px; border-left: 5px solid #ffc107;">
+                <ul>
+                    <li>✅ Can explain App Router vs Pages Router</li>
+                    <li>✅ Can type React components properly</li>
+                    <li>✅ Understands Next.js caching strategies</li>
+                    <li>✅ Has 2-3 completed projects to discuss</li>
+                    <li>✅ Can explain Server Components benefits</li>
+                    <li>✅ Knows TypeScript utility types by heart</li>
+                    <li>✅ Can optimize Next.js performance</li>
+                    <li>✅ Understands middleware use cases</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #e0e7ff;">
+            <p style="color: #666; font-size: 14px;">Generated for TypeScript + Next.js Interview Preparation • Study Smart, Not Hard!</p>
+            <p style="color: #667eea; font-weight: 600; margin-top: 10px;">🚀 Good luck with your interviews! 🚀</p>
+        </div>
+    </div>
+    
+    <div style="display: flex; gap: 15px; margin: 20px;">
+        <button class="button" onclick="downloadPDF()">📥 Download as PDF</button>
+        <button class="button" onclick="window.print()">🖨️ Print Roadmap</button>
+    </div>
+    
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById('content');
+            const opt = {
+                margin:       1,
+                filename:     'TypeScript-NextJS-Interview-Roadmap.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+        }
+        
+        // Auto-open print dialog if desired
+        // setTimeout(() => window.print(), 1000);
+    </script>
+</body>
+</html>

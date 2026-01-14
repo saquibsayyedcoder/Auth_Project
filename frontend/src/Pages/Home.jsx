@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-100 px-6 py-8">
       <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-        📚 Book Store
+        Book Store
       </h1>
 
       {books.length === 0 ? (

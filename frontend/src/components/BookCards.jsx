@@ -6,25 +6,67 @@ const BookCards = ({ book }) => {
   return (
     <div
       onClick={() => navigate(`/single-book/${book._id}`)}
-      className="cursor-pointer group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+      className="
+        cursor-pointer group
+        bg-white rounded-2xl overflow-hidden
+        shadow-sm hover:shadow-xl
+        transition-all duration-300
+        hover:-translate-y-1
+        flex flex-col
+      "
     >
-      <img
-        src={`http://localhost:5000${book.image}`}
-        alt={book.title}
-        className="w-full h-52 object-cover"
-      />
+      {/* IMAGE */}
+      <div className="relative w-full aspect-[3/4] overflow-hidden">
+        <img
+          src={`http://localhost:5000${book.image}`}
+          alt={book.title}
+          className="
+            w-full h-full object-cover
+            transition-transform duration-500
+            group-hover:scale-105
+          "
+        />
 
-      <div className="p-4 space-y-2">
-        <h2 className="text-lg font-semibold">{book.title}</h2>
-        <p className="text-sm text-gray-500">by {book.author}</p>
-        <p className="text-sm text-gray-600 line-clamp-2">
-          {book.description}
-        </p>
+        {/* PRICE BADGE */}
+        <span className="
+          absolute top-3 right-3
+          bg-blue-600 text-white
+          text-sm font-semibold
+          px-3 py-1 rounded-full
+          shadow-md
+        ">
+          ₹{book.price}
+        </span>
       </div>
 
-      <div className="flex justify-between px-4 py-3 border-t">
-        <span className="font-bold">₹{book.price}</span>
-        <span className="text-xs">Stock: {book.stock}</span>
+      {/* CONTENT */}
+      <div className="p-4 flex flex-col flex-grow">
+        <h2 className="text-base md:text-lg font-semibold text-gray-900 line-clamp-2">
+          {book.title}
+        </h2>
+
+        <p className="text-sm text-gray-500 mt-1">
+          by {book.author}
+        </p>
+
+        <p className="text-sm text-gray-600 mt-2 line-clamp-2">
+          {book.description}
+        </p>
+
+        {/* FOOTER */}
+        <div className="mt-auto pt-4 flex justify-between items-center text-sm">
+          <span
+            className={`font-medium ${
+              book.stock > 0 ? "text-green-600" : "text-red-500"
+            }`}
+          >
+            {book.stock > 0 ? "In Stock" : "Out of Stock"}
+          </span>
+
+          <span className="text-gray-400 text-xs">
+            Stock: {book.stock}
+          </span>
+        </div>
       </div>
     </div>
   );

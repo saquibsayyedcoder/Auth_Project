@@ -1,6 +1,8 @@
 import { useState } from "react";
 import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import "./global.css";
+
 
 const AddBook = () => {
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ const AddBook = () => {
         className="bg-white w-full max-w-lg p-8 rounded-xl shadow-lg"
       >
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-          ➕ Add New Book
+         Add New Book
         </h2>
 
         {/* Title */}

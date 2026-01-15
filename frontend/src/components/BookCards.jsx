@@ -1,53 +1,74 @@
-import { useState } from "react";
-import BookModal from "./BookModal";
+import { useNavigate } from "react-router-dom";
 
 const BookCards = ({ book }) => {
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
-    <>
-      {/* CARD */}
-      <div
-        onClick={() => setOpen(true)}
-        className="cursor-pointer group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
-      >
-        {/* IMAGE */}
+    <div
+      onClick={() => navigate(`/single-book/${book._id}`)}
+      className="
+        cursor-pointer group
+        bg-white rounded-2xl overflow-hidden
+        shadow-sm hover:shadow-xl
+        transition-all duration-300
+        hover:-translate-y-1
+        flex flex-col
+      "
+    >
+      {/* IMAGE */}
+      <div className="relative w-full aspect-[3/4] overflow-hidden">
         <img
           src={`http://localhost:5000${book.image}`}
           alt={book.title}
-          className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-300"
+          className="
+            w-full h-full object-cover
+            transition-transform duration-500
+            group-hover:scale-105
+          "
         />
 
-        {/* CONTENT */}
-        <div className="p-4 space-y-2">
-          <h2 className="text-lg font-semibold text-gray-800 line-clamp-1">
-            {book.title}
-          </h2>
+        {/* PRICE BADGE */}
+        <span className="
+          absolute top-3 right-3
+          bg-blue-600 text-white
+          text-sm font-semibold
+          px-3 py-1 rounded-full
+          shadow-md
+        ">
+          ₹{book.price}
+        </span>
+      </div>
 
-          <p className="text-sm text-gray-500">
-            by <span className="font-medium">{book.author}</span>
-          </p>
+      {/* CONTENT */}
+      <div className="p-4 flex flex-col flex-grow">
+        <h2 className="text-base md:text-lg font-semibold text-gray-900 line-clamp-2">
+          {book.title}
+        </h2>
 
-          <p className="text-sm text-gray-600 line-clamp-2">
-            {book.description}
-          </p>
-        </div>
+        <p className="text-sm text-gray-500 mt-1">
+          by {book.author}
+        </p>
+
+        <p className="text-sm text-gray-600 mt-2 line-clamp-2">
+          {book.description}
+        </p>
 
         {/* FOOTER */}
-        <div className="flex items-center justify-between px-4 py-3 border-t">
-          <span className="text-lg font-bold text-indigo-600">
-            ₹{book.price}
+        <div className="mt-auto pt-4 flex justify-between items-center text-sm">
+          <span
+            className={`font-medium ${
+              book.stock > 0 ? "text-green-600" : "text-red-500"
+            }`}
+          >
+            {book.stock > 0 ? "In Stock" : "Out of Stock"}
           </span>
 
-          <span className="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full">
+          <span className="text-gray-400 text-xs">
             Stock: {book.stock}
           </span>
         </div>
       </div>
-
-      {/* MODAL */}
-      {open && <BookModal book={book} close={() => setOpen(false)} />}
-    </>
+    </div>
   );
 };
 

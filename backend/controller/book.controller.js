@@ -1,7 +1,7 @@
 import Book from "../model/book.model.js";
 import fs from "fs";
 import path from "path";
-
+import mongoose from "mongoose";
 
 export const createBook = async (req, res) => {
     try {
@@ -47,21 +47,29 @@ export const getAllBooks = async (req, res) => {
 };
 
 //Get a Single book
-
 export const getSingleBook = async (req, res) => {
-    try {
-        const book = await Book.findById(req.params.id);
+  const { id } = req.params;
 
-        if(!book){
-            return res.status(404).json({
-                message:"Book Not Found"
-            });
-        }
-        res.json(book);
-    } catch (error) {
-        res.status(500).json({message:error.message});
-        
+  // 🚨 stop ":id" or invalid values
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({
+      message: "Invalid Book ID",
+    });
+  }
+
+  try {
+    const book = await Book.findById(id);
+
+    if (!book) {
+      return res.status(404).json({
+        message: "Book Not Found",
+      });
     }
+
+    res.json(book);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 //Update Book 

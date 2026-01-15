@@ -8,6 +8,8 @@ import Navbar from './components/Navbar';
 import AddBook from './Pages/AddBook';
 import ProtectedRoute from './components/ProtectedRoute';
 import EditBook from './Pages/EditBook';
+import SingleBook from './Pages/SingleBook';
+
 
 
 const App = () => {
@@ -30,6 +32,15 @@ const App = () => {
       <AddBook />
     </ProtectedRoute>
   }/>
+    <Route
+  path="/single-book/:id"
+  element={
+    <ProtectedRoute>
+      <SingleBook />
+    </ProtectedRoute>
+  }
+/>
+
  </Routes>
 </Router>
   </>
